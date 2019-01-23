@@ -1,0 +1,43 @@
+# coding:utf-8
+import re
+import requests
+from selenium import webdriver
+import time
+import urllib
+from urllib import request
+import os
+import time
+import lxml
+import lxml.html
+import json
+from lxml import etree
+import cssselect
+#新建session
+s = requests.session()
+url = "https://home.cnblogs.com/u/TankXiao"
+
+def get_cookies():
+    u'启动selenium获取浏览器cookies'
+    driver = webdriver.Chrome()
+    driver.get('http://index.baidu.com/#/')
+    driver.find_element_by_xpath('//*[@id="home"]/div[1]/div[2]/div[1]/div[5]/span/span').click()
+    time.sleep(2)
+    driver.find_element_by_xpath('//*[@id="TANGRAM__PSP_4__userName"]').send_keys("感动发现")
+    driver.find_element_by_xpath('//*[@id="TANGRAM__PSP_4__password"]').send_keys("1109470261")
+    driver.find_element_by_xpath('//*[@id="TANGRAM__PSP_4__submit"]').click()
+    time.sleep(2)
+    cookie = driver.get_cookies()
+    #获取浏览器cookies
+    driver.quit()
+    return cookie
+a = get_cookies()
+s = requests.session()
+c = requests.cookies.RequestsCookieJar()
+for i in a:    #添加cookie到CookieJar
+    c.set(i["name"], i["value"])
+s.cookies.update(c)
+#更新session里的cookie
+r1 = s.get('http://index.baidu.com/api/SearchApi/index?area=0&word=lol&startDate=2018-10-29&endDate=2018-11-05')
+ss = r1._content.decode()
+"http://index.baidu.com/api/SearchApi/index?word=lol&area=0&days=30"
+pass
