@@ -150,7 +150,9 @@ with open("海口权力清单.json", 'w', encoding='utf-8') as json_file:
         if i % 2 == 0:
             html = table[i]#网页内容
             url = table[i + 1]#网页网址
-            print(url)#打印所有网址 html = lxml.html.fromstring(html)#等同于etree.HTML函数 print(html)
+            print(url)#打印所有网址
+            html = lxml.html.fromstring(html)#等同于etree.HTML函数
+            print(html)
             data = html.cssselect('td')
             if len(data) == 15:
                 a = data[12].text_content()
